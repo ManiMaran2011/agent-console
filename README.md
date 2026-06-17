@@ -80,3 +80,23 @@ npm install && npm run build && npm run start
 - **Telemetry Bar** — Live token latency, RTT, tool duration, chaos stats
 - **State Machine Visualizer** — Live state diagram highlighting current state
 - **Stream Integrity Badge** — Post-STREAM_END rendered text verification
+
+## Screenshots
+
+**(a) Streamed response with tool call + context inspector showing a diff**
+
+![Streaming with tool call and context diff](screenshots/01-streaming-tool-call-context-diff.jpg)
+
+The agent's response froze mid-stream when `lookup_metric` was called, rendered the tool card with the result, then resumed streaming without duplication. The context panel on the right shows `current_focus` and `extracted_metrics` highlighted in green as newly added keys in this snapshot versus the previous one.
+
+**(b) Trace timeline + live WebSocket state machine + protocol compliance audit**
+
+![Trace timeline, state machine, and audit panel](screenshots/03-trace-timeline-state-machine.jpg)
+
+Every protocol event (context snapshot, token group, tool call, tool result, reconnect, resume) is logged in the timeline on the left in real time. The state machine widget shows the current connection state highlighted. A connection drop and reconnect are visible as discrete timeline entries, confirming RESUME-based recovery worked during this session.
+
+**(c) Protocol compliance audit panel**
+
+![Compliance audit score](screenshots/02-compliance-audit.jpg)
+
+Clicking "Run Audit" fetches `/log` from the agent-server and scores client protocol compliance against the server's own ground-truth log.
